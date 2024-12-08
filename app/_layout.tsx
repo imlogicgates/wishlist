@@ -28,6 +28,9 @@ SplashScreen.preventAutoHideAsync();
 export default function RootLayout() {
   const [loaded, error] = useFonts({
     SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
+    SamsungSharp: require("../assets/fonts/SamsungSharpSans-Bold.ttf"),
+    SamsungOneRegular: require("../assets/fonts/SamsungOne-400.ttf"),
+    SamsungOneBold: require("../assets/fonts/SamsungOne-700.ttf"),
     ...FontAwesome.font,
   });
 
