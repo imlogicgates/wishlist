@@ -1,10 +1,6 @@
 import React, { useEffect, useState } from "react";
-import {
-  ActivityIndicator,
-  FlatList,
-  Image,
-  RefreshControl,
-} from "react-native";
+import { ActivityIndicator, FlatList, RefreshControl } from "react-native";
+import FastImage from "react-native-fast-image";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { Text, View } from "./Themed";
 
@@ -15,9 +11,13 @@ interface WishlistItem {
   imageUrl?: string;
 }
 
-const fetchWishlistItems = async (): Promise<WishlistItem[]> => {
+const fetchWishlistItems = async (
+  page: number,
+  limit: number
+): Promise<WishlistItem[]> => {
   // Replace this with your actual data fetching logic (e.g., API call)
-  return [
+  // Here we simulate pagination with static data
+  const allItems = [
     {
       id: "1",
       title: "New Laptop",
@@ -31,18 +31,36 @@ const fetchWishlistItems = async (): Promise<WishlistItem[]> => {
       imageUrl: "https://example.com/headphones.jpg",
     },
     // Add more items as needed
+    // ...
   ];
+
+  const start = (page - 1) * limit;
+  const end = start + limit;
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(allItems.slice(start, end));
+    }, 1000); // Simulate network delay
+  });
 };
 
 const WishlistList: React.FC = () => {
   const [wishlist, setWishlist] = useState<WishlistItem[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [refreshing, setRefreshing] = useState<boolean>(false);
+  const [page, setPage] = useState<number>(1);
+  const [hasMore, setHasMore] = useState<boolean>(true);
 
-  const loadWishlist = async () => {
+  const loadWishlist = async (pageNumber: number = 1) => {
     try {
-      const items = await fetchWishlistItems();
-      setWishlist(items);
+      const items = await fetchWishlistItems(pageNumber, 10);
+      if (pageNumber === 1) {
+        setWishlist(items);
+      } else {
+        setWishlist((prev) => [...prev, ...items]);
+      }
+      if (items.length < 10) {
+        setHasMore(false);
+      }
     } catch (error) {
       console.error("Failed to load wishlist items:", error);
     } finally {
@@ -57,7 +75,16 @@ const WishlistList: React.FC = () => {
 
   const onRefresh = () => {
     setRefreshing(true);
-    loadWishlist();
+    setHasMore(true);
+    setPage(1);
+    loadWishlist(1);
+  };
+
+  const loadMore = () => {
+    if (!hasMore || loading) return;
+    const nextPage = page + 1;
+    setPage(nextPage);
+    loadWishlist(nextPage);
   };
 
   const renderItem = ({ item }: { item: WishlistItem }) => (
@@ -72,11 +99,11 @@ const WishlistList: React.FC = () => {
     >
       {item.imageUrl && (
         <View className="w-16 h-16 mr-4">
-          <Image
+          <FastImage
             source={{ uri: item.imageUrl }}
             style={{ width: "100%", height: "100%", borderRadius: 8 }}
-            resizeMode="cover"
-            accessible={false}
+            resizeMode={FastImage.resizeMode.cover}
+            accessibilityIgnoresInvertColors={false}
           />
         </View>
       )}
@@ -93,7 +120,7 @@ const WishlistList: React.FC = () => {
     </TouchableOpacity>
   );
 
-  if (loading) {
+  if (loading && page === 1) {
     return (
       <View className="flex-1 items-center justify-center">
         <ActivityIndicator size="large" color="#2f95dc" />
@@ -117,6 +144,13 @@ const WishlistList: React.FC = () => {
             Your wishlist is empty. Start adding some items!
           </Text>
         </View>
+      }
+      onEndReached={loadMore}
+      onEndReachedThreshold={0.5}
+      ListFooterComponent={
+        loading && page > 1 ? (
+          <ActivityIndicator size="small" color="#2f95dc" />
+        ) : null
       }
       accessibilityRole="list"
     />
