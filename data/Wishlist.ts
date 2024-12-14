@@ -1,7 +1,7 @@
 import { Realm, createRealmContext } from "@realm/react";
 import { ObjectSchema } from "realm";
 
-class Wishlist extends Realm.Object<Wishlist> {
+export class Wishlist extends Realm.Object<Wishlist> {
   _id!: Realm.BSON.ObjectId;
   name!: string;
   description?: string;

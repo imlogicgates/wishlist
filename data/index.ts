@@ -1,3 +1,3 @@
-import { WishlistRealmContext } from "./Wishlist";
+import { Wishlist, WishlistRealmContext } from "./Wishlist";
 
-export { WishlistRealmContext };
+export { Wishlist, WishlistRealmContext };
