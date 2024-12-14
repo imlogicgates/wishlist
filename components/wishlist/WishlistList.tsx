@@ -95,7 +95,7 @@ export const WishlistList: React.FC = () => {
           <View className="w-16 h-16 mr-4">
             <Image
               source={item.imageUrl}
-              // placeholder={require("@/assets/images/icon.png")}
+              placeholder={require("@/assets/images/icon.png")}
               style={{ width: "100%", height: "100%", borderRadius: 8 }}
               contentFit="cover"
               transition={200}
