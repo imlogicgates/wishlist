@@ -1,5 +1,5 @@
-import { useColorScheme } from "@/components/useColorScheme";
 import "@/global.css";
+import { useColorScheme } from "@/hooks";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import {
   DarkTheme,
