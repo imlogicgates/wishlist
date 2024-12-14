@@ -123,7 +123,9 @@ export const WishlistList: React.FC = () => {
     return (
       <View className="flex-1 items-center justify-center">
         <ActivityIndicator size="large" color="#2f95dc" />
-        <Text className="mt-2 text-gray-500">Loading your wishlist...</Text>
+        <Text type="header" className="mt-2 text-gray-500">
+          Loading your wishlist...
+        </Text>
       </View>
     );
   }
