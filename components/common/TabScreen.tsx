@@ -1,6 +1,5 @@
-import { Text, View } from "@/components/Themed";
+import { Text, View } from "@/components";
 import React from "react";
-
 interface TabScreenProps {
   title: string;
   children: React.ReactNode;

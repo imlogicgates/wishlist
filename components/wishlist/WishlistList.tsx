@@ -1,32 +1,26 @@
+import { Text, View } from "@/components/common";
+import { Product } from "@/types"; // Ensure this path is correct and the module exists
 import { Image } from "expo-image";
 import React, { useEffect, useState } from "react";
 import { ActivityIndicator, FlatList, RefreshControl } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import { Text, View } from "./Themed";
-
-interface WishlistItem {
-  id: string;
-  title: string;
-  description?: string;
-  imageUrl?: string;
-}
 
 const fetchWishlistItems = async (
   page: number,
   limit: number
-): Promise<WishlistItem[]> => {
+): Promise<Product[]> => {
   // Replace this with your actual data fetching logic (e.g., API call)
   // Here we simulate pagination with static data
-  const allItems = [
+  const allItems: Product[] = [
     {
       id: "1",
-      title: "New Laptop",
+      name: "New Laptop",
       description: "A high-performance laptop for programming and gaming.",
       imageUrl: "https://example.com/laptop.jpg",
     },
     {
       id: "2",
-      title: "Headphones",
+      name: "Headphones",
       description: "Noise-cancelling over-ear headphones.",
       imageUrl: "https://example.com/headphones.jpg",
     },
@@ -43,8 +37,8 @@ const fetchWishlistItems = async (
   });
 };
 
-const WishlistList: React.FC = () => {
-  const [wishlist, setWishlist] = useState<WishlistItem[]>([]);
+export const WishlistList: React.FC = () => {
+  const [wishlist, setWishlist] = useState<Product[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [refreshing, setRefreshing] = useState<boolean>(false);
   const [page, setPage] = useState<number>(1);
@@ -87,13 +81,13 @@ const WishlistList: React.FC = () => {
     loadWishlist(nextPage);
   };
 
-  const renderItem = ({ item }: { item: WishlistItem }) => (
+  const renderItem = ({ item }: { item: Product }) => (
     <TouchableOpacity
       onPress={() => {
         console.log(`Pressed item with id: ${item.id}`);
       }}
       accessible={true}
-      accessibilityLabel={`Wishlist item: ${item.title}`}
+      accessibilityLabel={`Wishlist item: ${item.name}`}
       activeOpacity={0.7}
     >
       <View className="flex-row items-center p-4 bg-white dark:bg-gray-800 rounded-lg shadow mb-2">
@@ -101,7 +95,7 @@ const WishlistList: React.FC = () => {
           <View className="w-16 h-16 mr-4">
             <Image
               source={item.imageUrl}
-              placeholder={require("../assets/images/icon.png")}
+              placeholder={require("@/assets/images/icon.png")}
               style={{ width: "100%", height: "100%", borderRadius: 8 }}
               contentFit="cover"
               transition={200}
@@ -110,7 +104,7 @@ const WishlistList: React.FC = () => {
         )}
         <View className="flex-1">
           <Text className="text-lg font-semibold text-black dark:text-white">
-            {item.title}
+            {item.name}
           </Text>
           {item.description && (
             <Text className="text-sm text-gray-600 dark:text-gray-300">

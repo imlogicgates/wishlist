@@ -1,5 +1,5 @@
-import { View } from "@/components/Themed";
-import WishlistList from "@/components/WishlistList";
+import { View } from "@/components/common";
+import { WishlistList } from "@/components/wishlist";
 import React from "react";
 
 const TabOneScreen: React.FC = () => {
