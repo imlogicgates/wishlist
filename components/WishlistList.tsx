@@ -1,6 +1,6 @@
+import { Image } from "expo-image";
 import React, { useEffect, useState } from "react";
 import { ActivityIndicator, FlatList, RefreshControl } from "react-native";
-import FastImage from "react-native-fast-image";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { Text, View } from "./Themed";
 
@@ -89,33 +89,35 @@ const WishlistList: React.FC = () => {
 
   const renderItem = ({ item }: { item: WishlistItem }) => (
     <TouchableOpacity
-      className="flex-row items-center p-4 bg-white dark:bg-gray-800 rounded-lg shadow mb-2"
       onPress={() => {
-        // Handle item press (e.g., navigate to details)
         console.log(`Pressed item with id: ${item.id}`);
       }}
       accessible={true}
       accessibilityLabel={`Wishlist item: ${item.title}`}
+      activeOpacity={0.7}
     >
-      {item.imageUrl && (
-        <View className="w-16 h-16 mr-4">
-          <FastImage
-            source={{ uri: item.imageUrl }}
-            style={{ width: "100%", height: "100%", borderRadius: 8 }}
-            resizeMode={FastImage.resizeMode.cover}
-            accessibilityIgnoresInvertColors={false}
-          />
-        </View>
-      )}
-      <View className="flex-1">
-        <Text className="text-lg font-semibold text-black dark:text-white">
-          {item.title}
-        </Text>
-        {item.description && (
-          <Text className="text-sm text-gray-600 dark:text-gray-300">
-            {item.description}
-          </Text>
+      <View className="flex-row items-center p-4 bg-white dark:bg-gray-800 rounded-lg shadow mb-2">
+        {item.imageUrl && (
+          <View className="w-16 h-16 mr-4">
+            <Image
+              source={item.imageUrl}
+              placeholder={require("../assets/images/icon.png")}
+              style={{ width: "100%", height: "100%", borderRadius: 8 }}
+              contentFit="cover"
+              transition={200}
+            />
+          </View>
         )}
+        <View className="flex-1">
+          <Text className="text-lg font-semibold text-black dark:text-white">
+            {item.title}
+          </Text>
+          {item.description && (
+            <Text className="text-sm text-gray-600 dark:text-gray-300">
+              {item.description}
+            </Text>
+          )}
+        </View>
       </View>
     </TouchableOpacity>
   );
