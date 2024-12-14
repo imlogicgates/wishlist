@@ -1,4 +1,4 @@
-import { Realm, createRealmContext } from "@realm/react";
+import { Realm } from "@realm/react";
 import { ObjectSchema } from "realm";
 
 export class Wishlist extends Realm.Object<Wishlist> {
@@ -17,7 +17,3 @@ export class Wishlist extends Realm.Object<Wishlist> {
     },
   };
 }
-
-export const WishlistRealmContext = createRealmContext({
-  schema: [Wishlist],
-});

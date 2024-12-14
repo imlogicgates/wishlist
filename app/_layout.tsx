@@ -1,12 +1,13 @@
-import { WishlistRealmContext } from "@/data";
 import "@/global.css";
 import { useColorScheme } from "@/hooks";
+import { Wishlist } from "@/schemas";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import {
   DarkTheme,
   DefaultTheme,
   ThemeProvider,
 } from "@react-navigation/native";
+import { RealmProvider } from "@realm/react";
 import { useFonts } from "expo-font";
 import { ErrorBoundary, Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
@@ -25,15 +26,14 @@ SplashScreen.preventAutoHideAsync();
 
 function RootLayoutNav() {
   const colorScheme = useColorScheme();
-  const { RealmProvider: WishlistRealmProvider } = WishlistRealmContext;
   return (
     <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
       <GestureHandlerRootView style={{ flex: 1 }}>
-        <WishlistRealmProvider>
+        <RealmProvider schema={[Wishlist]}>
           <Stack>
             <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
           </Stack>
-        </WishlistRealmProvider>
+        </RealmProvider>
       </GestureHandlerRootView>
     </ThemeProvider>
   );

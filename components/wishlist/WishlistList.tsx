@@ -1,107 +1,32 @@
 import { Text, View } from "@/components/common";
-import { Product } from "@/types"; // Ensure this path is correct and the module exists
+import { Wishlist } from "@/schemas";
+import { useQuery, useRealm } from "@realm/react";
 import { Image } from "expo-image";
-import React, { useEffect, useState } from "react";
-import { ActivityIndicator, FlatList, RefreshControl } from "react-native";
+import React from "react";
+import { FlatList, RefreshControl } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
-const fetchWishlistItems = async (
-  page: number,
-  limit: number
-): Promise<Product[]> => {
-  // Replace this with your actual data fetching logic (e.g., API call)
-  // Here we simulate pagination with static data
-  const allItems: Product[] = [
-    {
-      id: "1",
-      name: "New Laptop",
-      description: "A high-performance laptop for programming and gaming.",
-      imageUrl: "https://example.com/laptop.jpg",
-    },
-    {
-      id: "2",
-      name: "Headphones",
-      description: "Noise-cancelling over-ear headphones.",
-      imageUrl: "https://example.com/headphones.jpg",
-    },
-    // Add more items as needed
-    // ...
-  ];
-
-  const start = (page - 1) * limit;
-  const end = start + limit;
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(allItems.slice(start, end));
-    }, 1000); // Simulate network delay
-  });
-};
-
 export const WishlistList: React.FC = () => {
-  const [wishlist, setWishlist] = useState<Product[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [refreshing, setRefreshing] = useState<boolean>(false);
-  const [page, setPage] = useState<number>(1);
-  const [hasMore, setHasMore] = useState<boolean>(true);
+  const wishlists = useQuery(Wishlist);
+  const realm = useRealm();
 
-  const loadWishlist = async (pageNumber: number = 1) => {
-    try {
-      const items = await fetchWishlistItems(pageNumber, 10);
-      if (pageNumber === 1) {
-        setWishlist(items);
-      } else {
-        setWishlist((prev) => [...prev, ...items]);
-      }
-      if (items.length < 10) {
-        setHasMore(false);
-      }
-    } catch (error) {
-      console.error("Failed to load wishlist items:", error);
-    } finally {
-      setLoading(false);
-      setRefreshing(false);
-    }
-  };
-
-  useEffect(() => {
-    loadWishlist();
-  }, []);
-
-  const onRefresh = () => {
-    setRefreshing(true);
-    setHasMore(true);
-    setPage(1);
-    loadWishlist(1);
-  };
-
-  const loadMore = () => {
-    if (!hasMore || loading) return;
-    const nextPage = page + 1;
-    setPage(nextPage);
-    loadWishlist(nextPage);
-  };
-
-  const renderItem = ({ item }: { item: Product }) => (
+  const renderItem = ({ item }: { item: Wishlist }) => (
     <TouchableOpacity
-      onPress={() => {
-        console.log(`Pressed item with id: ${item.id}`);
-      }}
+      onPress={() => {}}
       accessible={true}
       accessibilityLabel={`Wishlist item: ${item.name}`}
       activeOpacity={0.7}
     >
       <View className="flex-row items-center p-4 bg-white dark:bg-gray-800 rounded-lg drop-shadow-2xl mb-2">
-        {item.imageUrl && (
-          <View className="w-16 h-16 mr-4">
-            <Image
-              source={item.imageUrl}
-              placeholder={require("@/assets/images/icon.png")}
-              style={{ width: "100%", height: "100%", borderRadius: 8 }}
-              contentFit="cover"
-              transition={200}
-            />
-          </View>
-        )}
+        <View className="w-16 h-16 mr-4">
+          <Image
+            source={require("@/assets/images/icon.png")}
+            placeholder={require("@/assets/images/icon.png")}
+            style={{ width: "100%", height: "100%", borderRadius: 8 }}
+            contentFit="cover"
+            transition={200}
+          />
+        </View>
         <View className="flex-1">
           <Text
             type="header"
@@ -109,35 +34,22 @@ export const WishlistList: React.FC = () => {
           >
             {item.name}
           </Text>
-          {item.description && (
-            <Text className="text-sm font-light text-gray-600 dark:text-gray-300">
-              {item.description}
-            </Text>
-          )}
+          <Text className="text-sm font-light text-gray-600 dark:text-gray-300">
+            {item.description ?? ""}
+          </Text>
         </View>
       </View>
     </TouchableOpacity>
   );
 
-  if (loading && page === 1) {
-    return (
-      <View className="flex-1 items-center justify-center">
-        <ActivityIndicator size="large" color="#2f95dc" />
-        <Text type="header" className="mt-2 text-gray-500">
-          Loading your wishlist...
-        </Text>
-      </View>
-    );
-  }
-
   return (
     <FlatList
-      data={wishlist}
-      keyExtractor={(item) => item.id}
+      data={wishlists}
+      keyExtractor={(item) => item._id.toString()}
       renderItem={renderItem}
       className="p-4"
       refreshControl={
-        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        <RefreshControl refreshing={realm.isClosed} onRefresh={() => {}} />
       }
       ListEmptyComponent={
         <View className="flex-1 items-center justify-center">
@@ -146,13 +58,8 @@ export const WishlistList: React.FC = () => {
           </Text>
         </View>
       }
-      onEndReached={loadMore}
+      onEndReached={() => {}}
       onEndReachedThreshold={0.5}
-      ListFooterComponent={
-        loading && page > 1 ? (
-          <ActivityIndicator size="small" color="#2f95dc" />
-        ) : null
-      }
       accessibilityRole="list"
     />
   );
