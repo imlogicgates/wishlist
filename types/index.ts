@@ -10,8 +10,9 @@ interface Url {
   imageUrl?: string | null;
 }
 
-interface Brand extends Entity, Url {}
+export interface Brand extends Entity, Url {}
 
-interface Product extends Entity, Url {
+export interface Product extends Entity, Url {
   brand?: Brand | null;
+  description?: string;
 }
