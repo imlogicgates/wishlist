@@ -47,7 +47,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="index"
         options={{
-          title: "Wishlists",
+          title: "Wish List",
           tabBarIcon: () => null,
           headerStyle: {
             backgroundColor: Colors[colorScheme ?? "light"].background,
@@ -60,7 +60,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="two"
         options={{
-          title: "Create wishlist",
+          title: "Create Wish",
           tabBarIcon: () => null,
         }}
       />

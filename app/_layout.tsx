@@ -1,6 +1,6 @@
 import "@/global.css";
 import { useColorScheme } from "@/hooks";
-import { Wishlist } from "@/schemas";
+import { Wish } from "@/schemas";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import {
   DarkTheme,
@@ -29,7 +29,7 @@ function RootLayoutNav() {
   return (
     <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
       <GestureHandlerRootView style={{ flex: 1 }}>
-        <RealmProvider schema={[Wishlist]}>
+        <RealmProvider schema={[Wish]}>
           <Stack>
             <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
           </Stack>

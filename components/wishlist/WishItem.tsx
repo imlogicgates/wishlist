@@ -1,23 +1,23 @@
 import { Text, View } from "@/components";
-import { Wishlist } from "@/schemas";
+import { Wish } from "@/schemas";
 import { useRealm } from "@realm/react";
 import { Image } from "expo-image";
 import { TouchableOpacity } from "react-native";
 
-export const WishlistItem = ({ item }: { item: Wishlist }) => {
+export const WishItem = ({ item }: { item: Wish }) => {
   const realm = useRealm();
 
-  const handleDeleteWishlist = (wishlist: Wishlist) => {
+  const handleDeleteWishList = (wish: Wish) => {
     realm.write(() => {
-      realm.delete(wishlist);
+      realm.delete(wish);
     });
   };
 
   return (
     <TouchableOpacity
-      onPress={() => handleDeleteWishlist(item)}
+      onPress={() => handleDeleteWishList(item)}
       accessible={true}
-      accessibilityLabel={`Wishlist item: ${item.name}`}
+      accessibilityLabel={`WishList item: ${item.name}`}
       activeOpacity={0.7}
     >
       <View className="flex-row items-center p-4 bg-white dark:bg-gray-800 rounded-lg drop-shadow-2xl mb-2">

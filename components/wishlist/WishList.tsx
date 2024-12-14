@@ -1,19 +1,19 @@
 import { Text, View } from "@/components/common";
-import { Wishlist } from "@/schemas";
+import { Wish } from "@/schemas";
 import { useQuery, useRealm } from "@realm/react";
 import React from "react";
 import { FlatList, RefreshControl } from "react-native";
-import { WishlistItem } from "./Item";
+import { WishItem } from "./WishItem";
 
-export const WishlistList: React.FC = () => {
-  const wishlists = useQuery(Wishlist);
+export const WishList: React.FC = () => {
+  const wishlist = useQuery(Wish);
   const realm = useRealm();
 
   return (
     <FlatList
-      data={wishlists}
+      data={wishlist}
       keyExtractor={(item) => item._id.toString()}
-      renderItem={({ item }) => <WishlistItem item={item} />}
+      renderItem={({ item }) => <WishItem item={item} />}
       className="p-4"
       refreshControl={
         <RefreshControl refreshing={realm.isClosed} onRefresh={() => {}} />
@@ -32,4 +32,4 @@ export const WishlistList: React.FC = () => {
   );
 };
 
-export default WishlistList;
+export default WishList;
