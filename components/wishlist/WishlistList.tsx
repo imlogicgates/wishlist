@@ -10,9 +10,15 @@ export const WishlistList: React.FC = () => {
   const wishlists = useQuery(Wishlist);
   const realm = useRealm();
 
+  const handleDeleteWishlist = (wishlist: Wishlist) => {
+    realm.write(() => {
+      realm.delete(wishlist);
+    });
+  };
+
   const renderItem = ({ item }: { item: Wishlist }) => (
     <TouchableOpacity
-      onPress={() => {}}
+      onPress={() => handleDeleteWishlist(item)}
       accessible={true}
       accessibilityLabel={`Wishlist item: ${item.name}`}
       activeOpacity={0.7}
