@@ -21,7 +21,6 @@ export const WishItemForm = ({ onSubmit, wish }: Props) => {
   return (
     <View style={{ gap: 12, padding: 16 }}>
       <Input control={control} name="name" label="Name" />
-
       <Input
         control={control}
         name="description"
