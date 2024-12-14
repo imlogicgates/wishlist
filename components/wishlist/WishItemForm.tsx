@@ -1,12 +1,9 @@
 import { useForm } from "react-hook-form";
-import { TouchableOpacity, View } from "react-native";
+import { Button, View } from "react-native";
 import { Wish } from "../../schemas/Wish";
 import { Input } from "../form";
 
-type FormData = {
-  name: string;
-  description?: string;
-};
+type FormData = Partial<Wish>;
 
 type Props = {
   onSubmit: (data: FormData) => void;
@@ -32,9 +29,10 @@ export const WishItemForm = ({ onSubmit, wish }: Props) => {
         multiline
       />
 
-      <TouchableOpacity onPress={handleSubmit(onSubmit)}>
-        {wish ? "Update" : "Create"}
-      </TouchableOpacity>
+      <Button
+        title={wish ? "Update" : "Create"}
+        onPress={handleSubmit(onSubmit)}
+      />
     </View>
   );
 };
