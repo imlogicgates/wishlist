@@ -8,31 +8,43 @@ import {
 } from "@react-navigation/native";
 import { RealmProvider } from "@realm/react";
 import { useFonts } from "expo-font";
-import { Stack } from "expo-router";
+import { ErrorBoundary, Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import "react-native-reanimated";
 
-export {
-  // Catch any errors thrown by the Layout component.
-  ErrorBoundary,
-} from "expo-router";
+export { ErrorBoundary };
 
 export const unstable_settings = {
-  // Ensure that reloading on `/modal` keeps a back button present.
   initialRouteName: "(tabs)",
 };
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
+function RootLayoutNav() {
+  const colorScheme = useColorScheme();
+
+  return (
+    <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
+      <GestureHandlerRootView style={{ flex: 1 }}>
+        <RealmProvider>
+          <Stack>
+            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+          </Stack>
+        </RealmProvider>
+      </GestureHandlerRootView>
+    </ThemeProvider>
+  );
+}
+
 export default function RootLayout() {
   const [loaded, error] = useFonts({
-    SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
-    SamsungSharp: require("../assets/fonts/SamsungSharpSans-Bold.ttf"),
-    SamsungOneRegular: require("../assets/fonts/SamsungOne-400.ttf"),
-    SamsungOneBold: require("../assets/fonts/SamsungOne-700.ttf"),
+    SpaceMono: require("@/assets/fonts/SpaceMono-Regular.ttf"),
+    SamsungSharp: require("@/assets/fonts/SamsungSharpSans-Bold.ttf"),
+    SamsungOneRegular: require("@/assets/fonts/SamsungOne-400.ttf"),
+    SamsungOneBold: require("@/assets/fonts/SamsungOne-700.ttf"),
     ...FontAwesome.font,
   });
 
@@ -52,20 +64,4 @@ export default function RootLayout() {
   }
 
   return <RootLayoutNav />;
-}
-
-function RootLayoutNav() {
-  const colorScheme = useColorScheme();
-
-  return (
-    <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-      <GestureHandlerRootView style={{ flex: 1 }}>
-        <RealmProvider>
-          <Stack>
-            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-          </Stack>
-        </RealmProvider>
-      </GestureHandlerRootView>
-    </ThemeProvider>
-  );
 }

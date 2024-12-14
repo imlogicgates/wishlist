@@ -90,7 +90,7 @@ export const WishlistList: React.FC = () => {
       accessibilityLabel={`Wishlist item: ${item.name}`}
       activeOpacity={0.7}
     >
-      <View className="flex-row items-center p-4 bg-white dark:bg-gray-800 rounded-lg shadow mb-2">
+      <View className="flex-row items-center p-4 bg-white dark:bg-gray-800 rounded-lg drop-shadow-2xl mb-2">
         {item.imageUrl && (
           <View className="w-16 h-16 mr-4">
             <Image
@@ -103,7 +103,7 @@ export const WishlistList: React.FC = () => {
           </View>
         )}
         <View className="flex-1">
-          <Text className="text-lg font-semibold text-black dark:text-white">
+          <Text className="text-lg font-samsung-sharp font-semibold text-black dark:text-white">
             {item.name}
           </Text>
           {item.description && (
