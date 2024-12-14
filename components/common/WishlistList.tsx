@@ -1,8 +1,8 @@
-import { Text, View } from "@/components";
 import { Image } from "expo-image";
 import React, { useEffect, useState } from "react";
 import { ActivityIndicator, FlatList, RefreshControl } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import { Text, View } from "./Themed";
 
 interface WishlistItem {
   id: string;
