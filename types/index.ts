@@ -1,15 +1,17 @@
 interface Entity {
   id: string;
   name: string;
+  createdAt?: Date | null;
+  updatedAt?: Date | null;
 }
 
-interface Brand extends Entity {
-  url?: string;
-  imageUrl?: string;
+interface Url {
+  url?: string | null;
+  imageUrl?: string | null;
 }
 
-interface Product extends Entity {
-  brand?: Brand;
-  url?: string;
-  imageUrl?: string;
+interface Brand extends Entity, Url {}
+
+interface Product extends Entity, Url {
+  brand?: Brand | null;
 }
