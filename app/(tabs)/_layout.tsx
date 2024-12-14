@@ -20,14 +20,20 @@ export default function TabLayout() {
   return (
     <Tabs
       screenOptions={{
+        headerStyle: {
+          backgroundColor: Colors[colorScheme ?? "light"].background,
+        },
+        headerTitleStyle: {
+          fontFamily: "SamsungSharp",
+        },
         tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
         tabBarStyle: {
           height: 60,
         },
         tabBarLabelStyle: {
-          fontSize: 18,
+          fontSize: 15,
           position: "absolute",
-          top: (60 - 18) / 2, // Center vertically: (tabBarHeight - fontSize) / 2
+          top: (60 - 15) / 2, // Center vertically: (tabBarHeight - fontSize) / 2
           fontFamily: "SamsungSharp",
         },
         tabBarIconStyle: {
