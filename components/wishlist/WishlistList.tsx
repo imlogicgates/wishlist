@@ -103,7 +103,10 @@ export const WishlistList: React.FC = () => {
           </View>
         )}
         <View className="flex-1">
-          <Text className="text-md text-md font-samsung-sharp font-semibold text-black dark:text-white">
+          <Text
+            type="header"
+            className="text-md text-md text-black dark:text-white"
+          >
             {item.name}
           </Text>
           {item.description && (

@@ -48,7 +48,16 @@ export function Text(props: TextProps) {
   } = props;
   const color = useThemeColor({ light: lightColor, dark: darkColor }, "text");
 
-  const combinedStyle = [{ color }, style];
+  const defaultStyles = {
+    header: { fontWeight: "bold", fontFamily: "SamsungSharp" },
+    paragraph: { fontFamily: "OpenSans" },
+  };
+
+  const combinedStyle = [
+    { color },
+    type ? defaultStyles[type] : defaultStyles["paragraph"],
+    style,
+  ];
 
   return <DefaultText style={combinedStyle} {...otherProps} />;
 }
