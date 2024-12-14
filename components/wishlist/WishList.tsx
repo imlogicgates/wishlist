@@ -1,4 +1,4 @@
-import { Text, View } from "@/components/common";
+import { Text, View } from "@/components";
 import { Wish } from "@/schemas";
 import { useQuery, useRealm } from "@realm/react";
 import React from "react";
