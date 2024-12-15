@@ -26,18 +26,18 @@ export const WishItemForm = ({ onSubmit, wish }: Props) => {
   };
 
   return (
-    <View style={{ gap: 12, padding: 16 }}>
+    <View className="flex-1 flex-col gap-3 p-6">
       <Input
         control={control}
         name="name"
         label="Name"
-        className="border-2 border-gray-300 rounded-lg text-xl px-4 py-2 font-samsung-sharp"
+        className="border-b border-gray-300 rounded-lg text-lg px-6 py-3 font-samsung-sharp"
       />
       <Input
         control={control}
         name="description"
         label="Description"
-        className="border-2 border-gray-300 rounded-lg text-xl px-4 py-2 font-samsung-sharp"
+        className="border-b border-gray-300 rounded-lg text-lg px-6 py-3 font-samsung-sharp"
         multiline
       />
 

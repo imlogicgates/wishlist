@@ -5,6 +5,9 @@ export const Button = ({ title, onPress }: ButtonProps) => {
     <TouchableOpacity
       className="bg-black text-white rounded-lg"
       onPress={onPress}
+      activeOpacity={0.7}
+      accessible={true}
+      accessibilityLabel={`Button: ${title}`}
     >
       <View className="flex-row items-center justify-center">
         <Text className="text-white font-samsung-sharp text-xl px-6 py-4">
