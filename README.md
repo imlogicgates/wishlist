@@ -27,7 +27,7 @@ To get started with the Wishlist application, follow these steps:
 1. **Clone the repository**:
 
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/imlogicgates/wishlist.git
    cd wishlist
    ```
 
