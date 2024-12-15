@@ -1,3 +1,4 @@
+import { router } from "expo-router";
 import { useForm } from "react-hook-form";
 import { Button, View } from "react-native";
 import { Wish } from "../../schemas/Wish";
@@ -11,12 +12,18 @@ type Props = {
 };
 
 export const WishItemForm = ({ onSubmit, wish }: Props) => {
-  const { control, handleSubmit } = useForm<FormData>({
+  const { control, handleSubmit, reset } = useForm<FormData>({
     defaultValues: {
       name: wish?.name || "",
       description: wish?.description || "",
     },
   });
+
+  const handleFormSubmit = (data: FormData) => {
+    onSubmit(data);
+    reset();
+    router.back();
+  };
 
   return (
     <View style={{ gap: 12, padding: 16 }}>
@@ -30,7 +37,7 @@ export const WishItemForm = ({ onSubmit, wish }: Props) => {
 
       <Button
         title={wish ? "Update" : "Create"}
-        onPress={handleSubmit(onSubmit)}
+        onPress={handleSubmit(handleFormSubmit)}
       />
     </View>
   );

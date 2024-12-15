@@ -1,7 +1,6 @@
 import { WishItemForm } from "@/components";
 import { Wish } from "@/schemas";
 import { Realm, useRealm } from "@realm/react";
-import { router } from "expo-router";
 export default function TabTwoScreen() {
   const realm = useRealm();
 
@@ -13,7 +12,6 @@ export default function TabTwoScreen() {
         createdDate: new Date(),
       });
     });
-    router.back();
   };
 
   return <WishItemForm onSubmit={handleSubmit} />;
