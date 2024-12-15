@@ -6,7 +6,6 @@ import { useColorScheme } from "react-native";
 import Colors from "@/constants/Colors";
 import { useClientOnlyValue } from "@/hooks";
 
-// You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
 function TabBarIcon(props: {
   name: React.ComponentProps<typeof FontAwesome>["name"];
   color: string;
@@ -33,14 +32,12 @@ export default function TabLayout() {
         tabBarLabelStyle: {
           fontSize: 15,
           position: "absolute",
-          top: (60 - 15) / 2, // Center vertically: (tabBarHeight - fontSize) / 2
+          top: (60 - 15) / 2,
           fontFamily: "SamsungSharp",
         },
         tabBarIconStyle: {
           display: "none",
         },
-        // Disable the static render of the header on web
-        // to prevent a hydration error in React Navigation v6.
         headerShown: useClientOnlyValue(false, true),
       }}
     >
@@ -49,12 +46,6 @@ export default function TabLayout() {
         options={{
           title: "Wish List",
           tabBarIcon: () => null,
-          headerStyle: {
-            backgroundColor: Colors[colorScheme ?? "light"].background,
-          },
-          headerTitleStyle: {
-            fontFamily: "SamsungSharp",
-          },
         }}
       />
       <Tabs.Screen

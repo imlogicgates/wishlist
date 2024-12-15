@@ -1,8 +1,8 @@
-import { Text, View } from "@/components";
 import { Wish } from "@/schemas";
 import { useQuery, useRealm } from "@realm/react";
 import React from "react";
 import { FlatList, RefreshControl } from "react-native";
+import { Text, View } from "../common";
 import { WishItem } from "./WishItem";
 
 export const WishList: React.FC = () => {

@@ -1,7 +1,8 @@
+import { Wish } from "@/schemas/Wish";
 import { router } from "expo-router";
 import { useForm } from "react-hook-form";
-import { Button, View } from "react-native";
-import { Wish } from "../../schemas/Wish";
+import { Button } from "react-native";
+import { View } from "../common";
 import { Input } from "../form";
 
 type FormData = Partial<Wish>;

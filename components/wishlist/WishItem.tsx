@@ -1,8 +1,8 @@
-import { Text, View } from "@/components";
 import { Wish } from "@/schemas";
 import { useRealm } from "@realm/react";
 import { Image } from "expo-image";
 import { TouchableOpacity } from "react-native";
+import { Text, View } from "../common";
 
 export const WishItem = ({ item }: { item: Wish }) => {
   const realm = useRealm();
