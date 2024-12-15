@@ -2,7 +2,7 @@ import { Wish } from "@/schemas";
 import { useQuery, useRealm } from "@realm/react";
 import React from "react";
 import { FlatList, RefreshControl } from "react-native";
-import { Text, View } from "../common";
+import { EmptyWishList } from "./EmptyWishList";
 import { WishItem } from "./WishItem";
 
 export const WishList: React.FC = () => {
@@ -18,13 +18,7 @@ export const WishList: React.FC = () => {
       refreshControl={
         <RefreshControl refreshing={realm.isClosed} onRefresh={() => {}} />
       }
-      ListEmptyComponent={
-        <View className="flex-1 items-center justify-center">
-          <Text className="text-center text-gray-500">
-            Your wishlist is empty. Start adding some items!
-          </Text>
-        </View>
-      }
+      ListEmptyComponent={<EmptyWishList />}
       onEndReached={() => {}}
       onEndReachedThreshold={0.5}
       accessibilityRole="list"
