@@ -1,7 +1,7 @@
 import LottieView from "lottie-react-native";
 import { useRef } from "react";
 import { Text, View } from "react-native";
-export const EmptyWishList = () => {
+export const EmptyList = ({ title = "items" }: { title: string }) => {
   const animation = useRef<LottieView>(null);
 
   return (
@@ -16,7 +16,9 @@ export const EmptyWishList = () => {
         }}
         source={require("@/assets/lottie/empty-list.json")}
       />
-      <Text className="text-lg font-bold">No wishlist items</Text>
+      <Text className="text-lg font-bold font-samsung-sharp">
+        No {title} found
+      </Text>
     </View>
   );
 };
