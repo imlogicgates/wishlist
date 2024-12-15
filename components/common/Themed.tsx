@@ -44,18 +44,27 @@ export function Text(props: TextProps) {
     lightColor,
     darkColor,
     type = "paragraph",
+    className = "",
     ...otherProps
   } = props;
   const color = useThemeColor({ light: lightColor, dark: darkColor }, "text");
 
   const defaultStyles = {
-    header: { fontSize: 24, fontWeight: "bold", fontFamily: "samsung-sharp" },
-    paragraph: { fontSize: 16, fontFamily: "samsung-regular" },
+    header: "font-bold font-samsung-sharp",
+    paragraph: "font-open-sans",
   };
 
-  const combinedStyle = [{ color }, type ? defaultStyles[type] : {}, style];
+  const combinedStyle = [{ color }, style];
 
-  return <DefaultText style={combinedStyle} {...otherProps} />;
+  return (
+    <DefaultText
+      style={combinedStyle}
+      className={`${
+        type ? defaultStyles[type] : defaultStyles["paragraph"]
+      } ${className}`}
+      {...otherProps}
+    />
+  );
 }
 
 export function View(props: ViewProps) {

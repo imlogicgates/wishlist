@@ -1,7 +1,7 @@
 import FontAwesome from "@expo/vector-icons/FontAwesome";
-import { Link, Tabs } from "expo-router";
+import { Tabs } from "expo-router";
 import React from "react";
-import { Pressable, Text, useColorScheme } from "react-native";
+import { useColorScheme } from "react-native";
 
 import Colors from "@/constants/Colors";
 import { useClientOnlyValue } from "@/hooks";
@@ -47,7 +47,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="index"
         options={{
-          title: "Wishlists",
+          title: "Wish List",
           tabBarIcon: () => null,
           headerStyle: {
             backgroundColor: Colors[colorScheme ?? "light"].background,
@@ -55,28 +55,12 @@ export default function TabLayout() {
           headerTitleStyle: {
             fontFamily: "SamsungSharp",
           },
-          headerRight: () => (
-            <Link href="/modal" asChild>
-              <Pressable>
-                {({ pressed }) => (
-                  <Text>
-                    <FontAwesome
-                      name="info-circle"
-                      size={25}
-                      color={Colors[colorScheme ?? "light"].text}
-                      style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}
-                    />
-                  </Text>
-                )}
-              </Pressable>
-            </Link>
-          ),
         }}
       />
       <Tabs.Screen
         name="two"
         options={{
-          title: "Create wishlist",
+          title: "Create Wish",
           tabBarIcon: () => null,
         }}
       />
